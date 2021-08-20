@@ -26,7 +26,7 @@ class User
      */
     public function __construct(string $name, $city, $birthday = null)
     {
-        $this->name = isset($name) ? $name : '';
+        $this->name = $name ?? '';
         $this->city = $city;
         $this->birthday = $birthday;
     }
@@ -74,7 +74,7 @@ class User
 
     public function setRole(string $role = self::CUSTOMER)
     {
-        $this->role = isset($this->role) ? $this->role : $role;
+        $this->role = $this->role ?? $role;
     }
 
     public function getAvatar(): string
@@ -91,8 +91,16 @@ class User
         }
     }
 
-    public function setLogger(LoggerInterface $logger)
+    /**
+     * @param LoggerInterface|null $logger
+     */
+    public function setLogger($logger = null)
     {
-        $this->logger = $logger;
+        $this->logger = $logger ?? new class implements LoggerInterface {
+                public function log($message)
+                {
+                    echo $message;
+                }
+            };
     }
 }
