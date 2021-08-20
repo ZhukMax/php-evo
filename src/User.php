@@ -22,9 +22,8 @@ class User
 
     /**
      * @param City|string $city
-     * @param DateTimeImmutable|null $birthday
      */
-    public function __construct(string $name, $city, $birthday = null)
+    public function __construct(string $name, $city, ?DateTimeImmutable $birthday = null)
     {
         $this->name = $name ?? '';
         $this->city = $city;
@@ -40,10 +39,7 @@ class User
         return $this->name;
     }
 
-    /**
-     * @return DateTimeImmutable|null
-     */
-    public function getBirthday()
+    public function getBirthday(): ?DateTimeImmutable
     {
         return $this->birthday;
     }
@@ -64,10 +60,7 @@ class User
         $this->city = $city;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getRole()
+    public function getRole(): ?string
     {
         return $this->role;
     }
@@ -91,10 +84,7 @@ class User
         }
     }
 
-    /**
-     * @param LoggerInterface|null $logger
-     */
-    public function setLogger($logger = null)
+    public function setLogger(?LoggerInterface $logger = null)
     {
         $this->logger = $logger ?? new class implements LoggerInterface {
                 public function log($message)
