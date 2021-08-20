@@ -5,20 +5,12 @@ class User
     public const CUSTOMER = 'customer';
     public const ADMIN = 'admin';
 
-    /** @var string */
-    private $name;
-
+    private string $name;
     /** @var City|string */
     private $city;
-
-    /** @var DateTimeImmutable|null */
-    private $birthday;
-
-    /** @var string */
-    private $role;
-
-    /** @var LoggerInterface */
-    private $logger;
+    private ?DateTimeImmutable $birthday;
+    private string $role;
+    private LoggerInterface $logger;
 
     /**
      * @param City|string $city
@@ -67,7 +59,7 @@ class User
 
     public function setRole(string $role = self::CUSTOMER): void
     {
-        $this->role = $this->role ?? $role;
+        $this->role ??= $role;
     }
 
     public function getAvatar(): string
