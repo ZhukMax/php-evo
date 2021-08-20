@@ -2,8 +2,8 @@
 
 class User
 {
-    const CUSTOMER = 'customer';
-    const ADMIN = 'admin';
+    public const CUSTOMER = 'customer';
+    public const ADMIN = 'admin';
 
     /** @var string */
     private $name;
@@ -55,7 +55,7 @@ class User
     /**
      * @param City|string $city
      */
-    public function setCity($city)
+    public function setCity($city): void
     {
         $this->city = $city;
     }
@@ -65,7 +65,7 @@ class User
         return $this->role;
     }
 
-    public function setRole(string $role = self::CUSTOMER)
+    public function setRole(string $role = self::CUSTOMER): void
     {
         $this->role = $this->role ?? $role;
     }
@@ -84,7 +84,7 @@ class User
         }
     }
 
-    public function setLogger(?LoggerInterface $logger = null)
+    public function setLogger(?LoggerInterface $logger = null): void
     {
         $this->logger = $logger ?? new class implements LoggerInterface {
                 public function log($message)
