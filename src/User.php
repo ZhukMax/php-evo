@@ -5,22 +5,14 @@ class User
     public const CUSTOMER = 'customer';
     public const ADMIN = 'admin';
 
-    private string $name;
-    /** @var City|string */
-    private $city;
-    private ?DateTimeImmutable $birthday;
     private string $role;
     private LoggerInterface $logger;
 
-    /**
-     * @param City|string $city
-     */
-    public function __construct(string $name, $city, ?DateTimeImmutable $birthday = null)
-    {
-        $this->name = $name ?? '';
-        $this->city = $city;
-        $this->birthday = $birthday;
-    }
+    public function __construct(
+        private string $name,
+        private City|string $city,
+        private ?DateTimeImmutable $birthday = null
+    ) {}
 
     public function getName(): string
     {
@@ -36,18 +28,12 @@ class User
         return $this->birthday;
     }
 
-    /**
-     * @return City|string
-     */
-    public function getCity()
+    public function getCity(): City|string
     {
         return $this->city;
     }
 
-    /**
-     * @param City|string $city
-     */
-    public function setCity($city): void
+    public function setCity(City|string $city): void
     {
         $this->city = $city;
     }
