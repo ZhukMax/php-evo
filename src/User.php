@@ -17,6 +17,9 @@ class User
     /** @var string */
     private $role;
 
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
      * @param string $name
      * @param City|string $city
@@ -34,6 +37,10 @@ class User
      */
     public function getName()
     {
+        if ($this->logger) {
+            $this->logger->log('Someone get my name');
+        }
+
         return $this->name;
     }
 
@@ -92,5 +99,13 @@ class User
             default:
                 return '/images/avatar.png';
         }
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
     }
 }
