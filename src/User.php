@@ -21,21 +21,17 @@ class User
     private $logger;
 
     /**
-     * @param string $name
      * @param City|string $city
      * @param DateTimeImmutable|null $birthday
      */
-    public function __construct($name, $city, $birthday = null)
+    public function __construct(string $name, $city, $birthday = null)
     {
         $this->name = isset($name) ? $name : '';
         $this->city = $city;
         $this->birthday = $birthday;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         if ($this->logger) {
             $this->logger->log('Someone get my name');
@@ -76,18 +72,12 @@ class User
         return $this->role;
     }
 
-    /**
-     * @param string $role
-     */
-    public function setRole($role = self::CUSTOMER)
+    public function setRole(string $role = self::CUSTOMER)
     {
         $this->role = isset($this->role) ? $this->role : $role;
     }
 
-    /**
-     * @return string
-     */
-    public function getAvatar()
+    public function getAvatar(): string
     {
         switch ($this->role) {
             case self::CUSTOMER:
@@ -101,10 +91,7 @@ class User
         }
     }
 
-    /**
-     * @param LoggerInterface $logger
-     */
-    public function setLogger($logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
     }
