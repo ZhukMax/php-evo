@@ -2,6 +2,9 @@
 
 class User
 {
+    const CUSTOMER = 'customer';
+    const ADMIN = 'admin';
+
     /** @var string */
     private $name;
 
@@ -10,6 +13,9 @@ class User
 
     /** @var DateTimeImmutable|null */
     private $birthday;
+
+    /** @var string */
+    private $role;
 
     /**
      * @param string $name
@@ -53,5 +59,38 @@ class User
     public function setCity($city)
     {
         $this->city = $city;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole($role = self::CUSTOMER)
+    {
+        $this->role = isset($this->role) ? $this->role : $role;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatar()
+    {
+        switch ($this->role) {
+            case self::CUSTOMER:
+                return '/images/customer.png';
+
+            case self::ADMIN:
+                return '/images/admin.png';
+
+            default:
+                return '/images/avatar.png';
+        }
     }
 }
