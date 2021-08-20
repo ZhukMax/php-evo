@@ -1,17 +1,16 @@
 <?php
 
+use JetBrains\PhpStorm\Pure;
+
 class User
 {
-    public const CUSTOMER = 'customer';
-    public const ADMIN = 'admin';
-
-    private string $role;
+    private Role $role;
     private LoggerInterface $logger;
 
     public function __construct(
         private string $name,
         private City|string $city,
-        private ?DateTimeImmutable $birthday = null
+        public readonly ?DateTimeImmutable $birthday = null
     ) {}
 
     public function getName(): string
@@ -19,11 +18,6 @@ class User
         $this->logger?->log('Someone get my name');
 
         return $this->name;
-    }
-
-    public function getBirthday(): ?DateTimeImmutable
-    {
-        return $this->birthday;
     }
 
     public function getCity(): City|string
@@ -38,21 +32,17 @@ class User
 
     public function getRole(): ?string
     {
-        return $this->role;
+        return $this->role->value;
     }
 
-    public function setRole(string $role = self::CUSTOMER): void
+    public function setRole(Role $role = Role::CUSTOMER): void
     {
         $this->role ??= $role;
     }
 
-    public function getAvatar(): string
+    #[Pure] public function getAvatar(): string
     {
-        return match ($this->role) {
-            self::CUSTOMER => '/images/customer.png',
-            self::ADMIN => '/images/admin.png',
-            default => '/images/avatar.png',
-        };
+        return $this->role->getAvatar() ?? '/images/avatar.png';
     }
 
     public function setLogger(?LoggerInterface $logger = null): void
